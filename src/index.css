@@ -1,0 +1,123 @@
+@import "tailwindcss";
+@import "@fontsource/public-sans/400.css";
+@import "@fontsource/public-sans/500.css";
+@import "@fontsource/public-sans/600.css";
+@import "@fontsource/public-sans/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+/* ==========================================================================
+   DESIGN TOKENS
+   A case-management tool, not a marketing dashboard. White-led surfaces,
+   one disciplined navy for structure, one accent reserved strictly for
+   active/interactive state. Semantic colors used only for status — never
+   decoration.
+   ========================================================================== */
+@theme {
+  /* ---- Type families ---- */
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ---- Surfaces (warm white system — not cold blue-grey) ---- */
+  --color-paper: #FAFAF8;
+  --color-paper-dim: #F2F1ED;
+  --color-canvas: #FFFFFF;
+  --color-line: #E4E2DC;
+  --color-line-strong: #CFCDC4;
+
+  /* ---- Ink / text ---- */
+  --color-ink: #15191E;
+  --color-ink-soft: #4A5058;
+  --color-ink-faint: #80868F;
+
+  /* ---- Structural navy (sidebar, headers — NOT used as a bright accent) ---- */
+  --color-command-900: #0A1A2C;
+  --color-command-800: #0E2238;
+  --color-command-700: #15324F;
+  --color-command-600: #1E4566;
+  --color-command-line: rgba(255, 255, 255, 0.08);
+  --color-command-ink: #C7D2DE;
+  --color-command-ink-dim: #7D8EA3;
+
+  /* ---- Single accent — active states, links, primary actions only ---- */
+  --color-signal-700: #154A85;
+  --color-signal-600: #1D5FA8;
+  --color-signal-500: #2873C2;
+  --color-signal-100: #E5EEF8;
+  --color-signal-50: #F2F6FB;
+
+  /* ---- Semantic triad (desaturated, status-only) ---- */
+  --color-confirmed-700: #1E6B45;
+  --color-confirmed-600: #2A8559;
+  --color-confirmed-100: #E3F2EA;
+
+  --color-caution-700: #8A5A12;
+  --color-caution-600: #B17A1E;
+  --color-caution-100: #FBF0DD;
+
+  --color-alert-700: #A3271F;
+  --color-alert-600: #C5362C;
+  --color-alert-100: #FBE6E4;
+
+  /* ---- Radii ---- */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* ---- Shadows (used sparingly — overlays only) ---- */
+  --shadow-overlay: 0 12px 32px -8px rgba(10, 26, 44, 0.22), 0 2px 8px -2px rgba(10, 26, 44, 0.12);
+
+  /* ---- Layout constants ---- */
+  --spacing-sidebar: 17rem;
+  --spacing-topbar: 4rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+  ::selection {
+    background-color: var(--color-signal-100);
+    color: var(--color-signal-700);
+  }
+  /* Visible keyboard focus everywhere — non-negotiable for an internal tool */
+  :focus-visible {
+    outline: 2px solid var(--color-signal-600);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Signature element: the "case-tab" — a folder-tab header motif used
+     consistently as the module title treatment across every screen. */
+  .case-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .case-tab::before {
+    content: "";
+    width: 3px;
+    align-self: stretch;
+    background: var(--color-signal-600);
+    border-radius: 2px;
+  }
+}
